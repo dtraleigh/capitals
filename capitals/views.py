@@ -1,5 +1,10 @@
 from django.shortcuts import render
 
-def home(request):
+from capitals.models import Capital, Photo
 
-    return render(request, 'index.html')
+def home(request):
+    us_capitals = Capital.objects.exclude(us_state='')
+    all_photos = Photo.objects.all()
+
+    return render(request, 'index.html', {'us_capitals':us_capitals,
+                                        'all_photos':all_photos})

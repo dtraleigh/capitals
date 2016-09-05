@@ -116,7 +116,6 @@ class Capital(models.Model):
     description = models.TextField(blank=True)
     lat = models.DecimalField(max_digits=9, decimal_places=6, default=0, verbose_name='Latitude')
     lon = models.DecimalField(max_digits=9, decimal_places=6, default=0, verbose_name='Longitude')
-    photos = models.ManyToManyField('Photo', default=None, blank=True)
 
     def __str__(self):
         return '%s' % (self.name)
@@ -124,6 +123,7 @@ class Capital(models.Model):
 class Photo(models.Model):
     name = models.CharField(max_length=200)
     photo_file = models.FileField(upload_to='photos/')
+    capital = models.ForeignKey(Capital, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return '%s' % (self.name)

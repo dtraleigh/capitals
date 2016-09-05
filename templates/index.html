@@ -19,6 +19,49 @@
 	    padding: 5px;
 	    font-weight: bold;
 	  }
+		{%for capital in us_capitals%}
+		#photos{{capital.id}} {
+		   line-height: 0;
+		   -webkit-column-count: 5;
+		   -webkit-column-gap:   0px;
+		   -moz-column-count:    5;
+		   -moz-column-gap:      0px;
+		   column-count:         5;
+		   column-gap:           0px;
+		}
+		#photos{{capital.id}} img {
+		  width: 100% !important;
+		  height: auto !important;
+		}
+		@media (max-width: 1200px) {
+		  #photos{{capital.id}} {
+		  -moz-column-count:    4;
+		  -webkit-column-count: 4;
+		  column-count:         4;
+		  }
+		}
+		@media (max-width: 1000px) {
+		  #photos{{capital.id}} {
+		  -moz-column-count:    3;
+		  -webkit-column-count: 3;
+		  column-count:         3;
+		  }
+		}
+		@media (max-width: 800px) {
+		  #photos{{capital.id}} {
+		  -moz-column-count:    2;
+		  -webkit-column-count: 2;
+		  column-count:         2;
+		  }
+		}
+		@media (max-width: 400px) {
+		  #photos{{capital.id}} {
+		  -moz-column-count:    1;
+		  -webkit-column-count: 1;
+		  column-count:         1;
+		  }
+		}
+	{%endfor%}
 	</style>
   {% load staticfiles %}
 	<!-- Bootstrap core CSS -->
@@ -38,18 +81,19 @@
 	$(document).ready(function() {
 	  $('#map').usmap({
 	    'stateSpecificStyles': {
-	      'NC' : {fill: '#76FF51'},
-				'ME' : {fill: '#76FF51'},
+				{%for capital in us_capitals%}
+	      '{{capital.us_state}}' : {fill: '#76FF51'},
+				{%endfor%}
 	    },
 	    //'stateSpecificHoverStyles': {
 	    //  'HI' : {fill: '#ff0'}
 	    //},
 
-	    'mouseoverState': {
-	      'HI' : function(event, data) {
+	    //'mouseoverState': {
+	    //  'HI' : function(event, data) {
 	        //return false;
-	      }
-	    },
+	    //  }
+	    //},
 
 
 	    'click' : function(event, data) {
@@ -91,6 +135,13 @@
 	</script>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<p class="navbar-text">Leo and Jen - Capitals Journey</p>
+		</div>
+	</nav>
+
+<div class="container">
   <div class="row">
 		<div class="col-sm-6 col-xs-12">
   		<div id="map" style="width: 100%; height: 400px;"></div>
@@ -103,6 +154,22 @@
 		</div>
 	</div>
 
+	{%for capital in us_capitals%}
+	<div class="row">
+		<div class="col-sm-12 col-xs-12">
+			<h1>{{capital.name}}</h1>
+			<p>{{capital.description}}</p>
+			<section id="photos{{capital.id}}">
+				{%for photo in all_photos%}
+					{%if photo.capital == capital%}
+						<img src="{{ MEDIA_URL }}{{photo.photo_file}}">
+					{%endif%}
+				{%endfor%}
+			</section>
+		</div>
+	</div>
+	{%endfor%}
+</div>
 	<!-- Javascript for Bootstrap
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
 </body>
