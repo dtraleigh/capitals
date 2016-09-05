@@ -156,9 +156,11 @@
 
 	{%for capital in us_capitals%}
 	<div class="row">
-		<div class="col-sm-12 col-xs-12">
-			<h1>{{capital.name}}</h1>
+		<h1>{{capital.name}}</h1>
+		<div class="col-sm-4 col-xs-12">
 			<p>{{capital.description}}</p>
+		</div>
+		<div class="col-sm-8 col-xs-12">
 			<section id="photos{{capital.id}}">
 				{%for photo in all_photos%}
 					{%if photo.capital == capital%}
