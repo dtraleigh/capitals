@@ -1,6 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	{% load staticfiles %}
+	<link rel="shortcut icon" type="image/png" href="{% static "img/favicon.png" %}">
+
 	<title>US Map Demo</title>
 
 	<style>
@@ -14,8 +21,15 @@
 	  }
 	</style>
   {% load staticfiles %}
+	<!-- Bootstrap core CSS -->
+	<link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet">
+
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="{% static "css/ie10-viewport-bug-workaround.css"%}" rel="stylesheet">
+
+	<!-- Javascript for US Map -->
 	<script src="{% static "js/raphael.js"%}"></script>
-	<!-- <script src="scale.raphael.js"></script> -->
+	<!-- <script src="scale.raphael.js"></script>-->
 	<script src="{% static "js/jquery.js"%}"></script>
 	<script src="{% static "js/color.jquery.js"%}"></script>
 	<script src="{% static "js/jquery.usmap.js"%}"></script>
@@ -76,11 +90,19 @@
 	</script>
 </head>
 <body>
-  <div id="alert">Click alerts</div>
+  <div class="row">
+		<div class="col-sm-6 col-xs-12">
+  		<div id="map" style="width: 100%; height: 630px; border: solid 3px red;"></div>
 
-  <div id="map" style="width: 930px; height: 630px; border: solid 3px red;"></div>
+		  <button id="over-md">mouseover MD</button> <button id="out-md">mouseout MD</button>
+		  <div id="map2" style="width: 300px; height: 300px;"></div>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			Stats go here.
+		</div>
+	</div>
 
-  <button id="over-md">mouseover MD</button> <button id="out-md">mouseout MD</button>
-  <div id="map2" style="width: 300px; height: 300px;"></div>
+	<!-- Javascript for Bootstrap
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
 </body>
 </html>
