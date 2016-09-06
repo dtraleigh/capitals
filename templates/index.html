@@ -8,7 +8,7 @@
 	{% load staticfiles %}
 	<link rel="shortcut icon" type="image/png" href="{% static "img/favicon.png" %}">
 
-	<title>US Map Demo</title>
+	<title>Leo and Jen - Capitals Journey</title>
 
 	<style>
 	  #alert {
@@ -19,7 +19,7 @@
 	    padding: 5px;
 	    font-weight: bold;
 	  }
-		{%for capital in us_capitals%}
+		{%for capital in all_capitals%}
 		#photos{{capital.id}} {
 		   line-height: 0;
 		   -webkit-column-count: 5;
@@ -154,20 +154,27 @@
 		</div>
 	</div>
 
-	{%for capital in us_capitals%}
+	{%for capital in all_capitals%}
 	<div class="row">
-		<h1>{{capital.name}}</h1>
-		<div class="col-sm-4 col-xs-12">
-			<p>{{capital.description}}</p>
-		</div>
-		<div class="col-sm-8 col-xs-12">
-			<section id="photos{{capital.id}}">
-				{%for photo in all_photos%}
-					{%if photo.capital == capital%}
-						<img src="{{ MEDIA_URL }}{{photo.photo_file}}">
-					{%endif%}
-				{%endfor%}
-			</section>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+		    <h2 class="panel-title">{{capital.name}}</h2>
+		  </div>
+			<div class="panel-body">
+				<div class="col-sm-4 col-xs-12">
+					<h3>Date Visited: {{capital.date_visited}}</h3>
+					<p>{{capital.description}}</p>
+				</div>
+				<div class="col-sm-8 col-xs-12">
+					<section id="photos{{capital.id}}">
+						{%for photo in all_photos%}
+							{%if photo.capital == capital%}
+								<img src="{{ MEDIA_URL }}{{photo.photo_file}}">
+							{%endif%}
+						{%endfor%}
+					</section>
+				</div>
+		  </div>
 		</div>
 	</div>
 	{%endfor%}

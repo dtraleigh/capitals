@@ -91,7 +91,7 @@ class Capital(models.Model):
         (OREGON, 'Oregon'),
         (PENNSYLVANIA, 'Pennsylvania'),
         (RHODE_ISLAND, 'Rhode Island'),
-        (SOUTH_CAROLINA, 'South_Carolina'),
+        (SOUTH_CAROLINA, 'South Carolina'),
         (SOUTH_DAKOTA, 'South Dakota'),
         (TENNESSEE, 'Tennessee'),
         (TEXAS, 'Texas'),
@@ -116,6 +116,9 @@ class Capital(models.Model):
     description = models.TextField(blank=True)
     lat = models.DecimalField(max_digits=9, decimal_places=6, default=0, verbose_name='Latitude')
     lon = models.DecimalField(max_digits=9, decimal_places=6, default=0, verbose_name='Longitude')
+
+    class Meta:
+        ordering = ['-date_visited']
 
     def __str__(self):
         return '%s' % (self.name)

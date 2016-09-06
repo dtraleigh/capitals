@@ -4,7 +4,9 @@ from capitals.models import Capital, Photo
 
 def home(request):
     us_capitals = Capital.objects.exclude(us_state='')
+    all_capitals = Capital.objects.all()
     all_photos = Photo.objects.all()
 
     return render(request, 'index.html', {'us_capitals':us_capitals,
-                                        'all_photos':all_photos})
+                                        'all_photos':all_photos,
+                                        'all_capitals':all_capitals})
