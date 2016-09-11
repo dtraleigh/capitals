@@ -127,6 +127,8 @@ class Photo(models.Model):
     name = models.CharField(max_length=200)
     photo_file = models.FileField(upload_to='photos/')
     capital = models.ForeignKey(Capital, on_delete=models.CASCADE, null=True)
+    photo_width = models.IntegerField()
+    photo_height = models.IntegerField()
 
     def __str__(self):
         return '%s' % (self.name)

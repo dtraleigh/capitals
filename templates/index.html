@@ -178,10 +178,10 @@
 						{%for photo in all_photos%}
 							{%if photo.capital == capital%}
 								<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-						      <a href="{{ MEDIA_URL }}{{photo.photo_file}}" itemprop="contentUrl" data-size="1000x664">
+						      <a href="{{ MEDIA_URL }}{{photo.photo_file}}" itemprop="contentUrl" data-size="{{photo.photo_width}}x{{photo.photo_height}}">
 						          <img src="{{ MEDIA_URL }}{{photo.photo_file}}" itemprop="thumbnail" alt="Image description" />
 						      </a>
-						    	<figcaption itemprop="caption description">Image caption  1</figcaption>
+						    	<figcaption itemprop="caption description">{{capital.name}} - {{capital.date_visited}}</figcaption>
 								</figure>
 							{%endif%}
 						{%endfor%}

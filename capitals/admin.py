@@ -2,7 +2,7 @@ from django.contrib import admin
 from capitals.models import Photo, Capital
 
 class photo_admin(admin.ModelAdmin):
-    list_display = ('name', 'photo_file')
+    list_display = ('name', 'photo_file', 'photo_width', 'photo_height')
 
 class capital_admin(admin.ModelAdmin):
     list_display = ('name', 'us_state', 'date_visited', 'lat', 'lon')
