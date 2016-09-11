@@ -136,6 +136,7 @@
 	</script>
 </head>
 <body>
+	<a name="top"></a>
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<p class="navbar-text">Leo and Jen - Capitals Journey</p>
@@ -160,12 +161,18 @@
 			  </div>
 			</div>
 			<ul id="quad">
-				{%for city, visited in us_states_list%}
+				{%for city, visited, state in us_states_list%}
 					{%if visited%}
-						<li>{{city}}*</li>
+						<li><strong><a href="#{{state}}">{{city}}</a></strong></li>
 					{%else%}
 						<li>{{city}}</li>
 					{%endif%}
+				{%endfor%}
+			</ul>
+			<h5>Other Capitals</h5>
+			<ul id="quad">
+				{%for capital in other_capitals%}
+					<li><strong><a href="#{{capital.id}}">{{capital.name}}</a></strong></li>
 				{%endfor%}
 			</ul>
 		</div>
@@ -175,7 +182,9 @@
 	<div class="row">
 		<div class="panel panel-default">
 			<div class="panel-heading">
+				<a name="{{capital.us_state}}"></a>
 		    <h2 class="panel-title">{{capital.name}}</h2>
+				<p class="text-right"><a href="#top">Back to top</a></p>
 		  </div>
 			<div class="panel-body">
 				<div class="col-sm-4 col-xs-12">
