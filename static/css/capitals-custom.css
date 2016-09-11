@@ -1,3 +1,17 @@
 .my-gallery figcaption {
   display: none;
 }
+.statistics ul{
+  margin-bottom:20px;
+  overflow:hidden;
+  border-top:1px solid #ccc;
+}
+.statistics li{
+  float:left;
+  display:inline;
+  font-size:0.8em;
+}
+.statistics #double li  { width:50%;}
+.statistics #triple li  { width:33.333%; }
+.statistics #quad li    { width:25%; }
+.statistics #six li     { width:16.666%; }

@@ -151,7 +151,7 @@
 		  <button id="over-md">mouseover MD</button> <button id="out-md">mouseout MD</button>
 		  <div id="map2" style="width: 300px; height: 300px;"></div> -->
 		</div>
-		<div class="col-md-6 col-sm-12 col-xs-12">
+		<div class="col-md-6 col-sm-12 col-xs-12 statistics">
 			<h2 class="text-center">Statistics</h2>
 			<h4>US Capitals</h4>
 			<div class="progress">
@@ -159,6 +159,15 @@
 			    {{us_capitals_visited}} / 50
 			  </div>
 			</div>
+			<ul id="quad">
+				{%for city, visited in us_states_list%}
+					{%if visited%}
+						<li>{{city}}*</li>
+					{%else%}
+						<li>{{city}}</li>
+					{%endif%}
+				{%endfor%}
+			</ul>
 		</div>
 	</div>
 

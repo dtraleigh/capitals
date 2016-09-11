@@ -88,6 +88,7 @@ class Capital(models.Model):
         (NORTH_CAROLINA, 'North Carolina'),
         (NORTH_DAKOTA, 'North Dakota'),
         (OHIO, 'Ohio'),
+        (OKLAHOMA, 'Oklahoma'),
         (OREGON, 'Oregon'),
         (PENNSYLVANIA, 'Pennsylvania'),
         (RHODE_ISLAND, 'Rhode Island'),
