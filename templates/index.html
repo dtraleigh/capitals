@@ -183,15 +183,16 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a name="{{capital.us_state}}"></a>
-		    <h2 class="panel-title">{{capital.name}}</h2>
+		    <h2 class="panel-title capital-title">{{capital.name}}</h2>
 				<p class="text-right"><a href="#top">Back to top</a></p>
 		  </div>
 			<div class="panel-body">
 				<div class="col-sm-4 col-xs-12">
+					<img src="{{ MEDIA_URL }}{{capital.flag}}" class="flag-img">
+					<small>{{capital.flag_caption}}</small>
 					<h3>Date Visited: {{capital.date_visited}}</h3>
 					<p>{{capital.description}}</p>
-					<p>
-						<a href="https://www.google.com/maps/@{{capital.lat}},{{capital.lon}},12z" target='_blank' class="btn btn-primary btn-lg active" role="button">Map it</a></p>
+					<p><a href="https://www.google.com/maps/@{{capital.lat}},{{capital.lon}},12z" target='_blank' class="btn btn-primary btn-lg active" role="button">Map it</a></p>
 				</div>
 				<div class="col-sm-8 col-xs-12">
 					<div id="photos{{capital.id}}" class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">

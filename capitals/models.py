@@ -117,6 +117,8 @@ class Capital(models.Model):
     description = models.TextField(blank=True)
     lat = models.DecimalField(max_digits=9, decimal_places=6, default=0, verbose_name='Latitude')
     lon = models.DecimalField(max_digits=9, decimal_places=6, default=0, verbose_name='Longitude')
+    flag = models.FileField(upload_to='flags/')
+    flag_caption = models.CharField(max_length=300, blank=True)
 
     class Meta:
         ordering = ['-date_visited']

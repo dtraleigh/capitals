@@ -15,3 +15,9 @@
 .statistics #triple li  { width:33.333%; }
 .statistics #quad li    { width:25%; }
 .statistics #six li     { width:16.666%; }
+.flag-img{
+  width:100%;
+}
+.capital-title{
+  position:absolute;
+}
