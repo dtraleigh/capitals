@@ -119,6 +119,7 @@ class Capital(models.Model):
     lon = models.DecimalField(max_digits=9, decimal_places=6, default=0, verbose_name='Longitude')
     flag = models.FileField(upload_to='flags/')
     flag_caption = models.CharField(max_length=300, blank=True)
+    country = models.ForeignKey('Country', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-date_visited']
@@ -132,6 +133,16 @@ class Photo(models.Model):
     capital = models.ForeignKey(Capital, on_delete=models.CASCADE, null=True)
     photo_width = models.IntegerField()
     photo_height = models.IntegerField()
+
+    def __str__(self):
+        return '%s' % (self.name)
+
+class Country(models.Model):
+    name = models.CharField(max_length=200)
+    flag = models.FileField(upload_to='flags/')
+
+    class Meta:
+        verbose_name_plural = 'Countries'
 
     def __str__(self):
         return '%s' % (self.name)

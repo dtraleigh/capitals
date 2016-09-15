@@ -19,5 +19,11 @@
   width:100%;
 }
 .capital-title{
-  position:absolute;
+  float: left;
+  position: inherit;
+  margin-left: 15px;
+}
+.country-flag-img{
+  width: 50px;
+  float: left;
 }
