@@ -182,7 +182,11 @@
 	<div class="row">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<a name="{{capital.us_state}}"></a>
+				{%if capital.us_state%}
+					<a name="{{capital.us_state}}"></a>
+				{%else%}
+					<a name="{{capital.id}}"></a>
+				{%endif%}
 				<img src="{{ MEDIA_URL }}{{capital.country.flag}}" class="country-flag-img">
 		    <h1 class="panel-title capital-title">{{capital.name}}</h1>
 				<p class="text-right"><a href="#top">Back to top</a></p>
