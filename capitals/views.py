@@ -46,3 +46,9 @@ def home(request):
                                         'us_capitals_visited_percent':us_capitals_visited_percent,
                                         'us_states_list':us_states_list,
                                         'other_capitals':other_capitals})
+
+def debug(request):
+    us_states_list = create_us_states_list()
+
+    return render(request, 'debug.html', {'us_states_list': us_states_list})
+
