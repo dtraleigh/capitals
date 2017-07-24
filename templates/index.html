@@ -144,37 +144,43 @@
 	</nav>
 
 <div class="container">
-  <div class="row">
-		<div class="col-md-6 col-sm-12 col-xs-12">
+  <div class="row" id="top-section">
+		<div class="col-md-5 col-sm-12 col-xs-12">
 			<h2 class="text-center">Map of the USA</h2>
   		<div id="map" style="width: 100%; height: 300px;"></div>
 			<!--
 		  <button id="over-md">mouseover MD</button> <button id="out-md">mouseout MD</button>
 		  <div id="map2" style="width: 300px; height: 300px;"></div> -->
+			<div class="col-md-5 col-sm-12 col-xs-12">
+				<h4>Other Countries</h4>
+				<div class="btn-group-vertical" role="group">
+					{%for capital in other_capitals%}
+						<a href="#{{capital.id}}" class="btn btn-info">{{capital.name}}</a>
+					{%endfor%}
+				</div>
+			</div>
 		</div>
-		<div class="col-md-6 col-sm-12 col-xs-12 statistics">
-			<h2 class="text-center">Statistics</h2>
+		<div class="col-md-7 col-sm-12 col-xs-12">
 			<h4>US Capitals</h4>
 			<div class="progress">
 			  <div class="progress-bar" role="progressbar" aria-valuenow="{{us_capitals_visited_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{us_capitals_visited_percent}}%;">
 			    {{us_capitals_visited}} / 50
 			  </div>
 			</div>
-			<ul id="quad">
-				{%for city, visited, state in us_states_list%}
-					{%if visited%}
-						<li><strong><a href="#{{state}}">{{city}}</a></strong></li>
-					{%else%}
-						<li>{{city}}</li>
-					{%endif%}
-				{%endfor%}
-			</ul>
-			<h5>Other Capitals</h5>
-			<ul id="quad">
-				{%for capital in other_capitals%}
-					<li><strong><a href="#{{capital.id}}">{{capital.name}}</a></strong></li>
-				{%endfor%}
-			</ul>
+			<!-- Will hard set 4 columns here, improve later -->
+			{%for column in all_columns%}
+				<div class="capital_column col-xs-12 col-sm-12 col-md-12">
+					<div class="btn-group-vertical" role="group">
+					{%for city, visited, state in column%}
+						{%if visited%}
+							<a href="#{{state}}" class="btn btn-success">{{city}}</a>
+						{%else%}
+							<a href="#{{state}}" class="btn btn-default">{{city}}</a>
+						{%endif%}
+					{%endfor%}
+					</div>
+				</div>
+			{%endfor%}
 		</div>
 	</div>
 

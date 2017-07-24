@@ -30,3 +30,10 @@
 .panel-body{
   background: url('../img/handmadepaper.png');
 }
+.capital_column{
+  width:25%;
+  float:left;
+}
+#top-section{
+  margin-bottom:50px;
+}
