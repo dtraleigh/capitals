@@ -37,3 +37,9 @@
 #top-section{
   margin-bottom:50px;
 }
+
+@media (max-width: 767px) {
+    .capital_column{
+      width:50%;
+    }
+}
