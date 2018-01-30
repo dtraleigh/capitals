@@ -27,9 +27,13 @@ def create_us_states_list():
     return us_states_list
 
 def home(request):
-    #Get some information to start with
+    #Capitals visited so far
     us_capitals = Capital.objects.exclude(us_state='')
+
+    #Capitals outside the US
     other_capitals = Capital.objects.filter(us_state='')
+
+    #All visited capitals
     all_capitals = Capital.objects.all()
     all_photos = Photo.objects.all()
 
