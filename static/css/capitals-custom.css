@@ -39,8 +39,6 @@
 }
 #content
 {
-    font-size: .75em; /* 12/16 */
-    width: 71.875%; /* 650/960 */
     max-width: 960px;
     text-align: left;
     margin: 0px auto; /*auto centers the container */
@@ -66,8 +64,8 @@
 {
     margin-top:0px;
 }
-@media (max-width: 767px) {
-    .capital_column{
-      width:50%;
-    }
+
+#btn-custom1{
+    width:170px;
+    border-radius: 0;
 }
