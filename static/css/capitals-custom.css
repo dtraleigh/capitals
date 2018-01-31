@@ -1,71 +1,74 @@
 .my-gallery figcaption {
-  display: none;
+	display: none;
 }
 .statistics ul{
-  margin-bottom:20px;
-  overflow:hidden;
-  border-top:1px solid #ccc;
+	margin-bottom:20px;
+	overflow:hidden;
+	border-top:1px solid #ccc;
 }
 .statistics li{
-  float:left;
-  display:inline;
-  font-size:0.8em;
+	float:left;
+	display:inline;
+	font-size:0.8em;
 }
-.statistics #double li  { width:50%;}
-.statistics #triple li  { width:33.333%; }
-.statistics #quad li    { width:25%; }
-.statistics #six li     { width:16.666%; }
+.statistics #double li {
+	width:50%;
+}
+.statistics #triple li {
+	width:33.333%;
+}
+.statistics #quad li {
+	width:25%;
+}
+.statistics #six li {
+	width:16.666%;
+}
 .flag-img{
-  width:100%;
+	width:100%;
 }
 .capital-title{
-  float: left;
-  position: inherit;
-  margin-left: 15px;
+	float: left;
+	position: inherit;
+	margin-left: 15px;
 }
 .country-flag-img{
-  width: 50px;
-  float: left;
+	width: 50px;
+	float: left;
 }
 .panel-body{
-  background: url('../img/handmadepaper.png');
-}
-.capital_column{
-  width:25%;
-  float:left;
+	background: url('../img/handmadepaper.png');
 }
 #top-section{
-  margin-bottom:50px;
+	margin-bottom:50px;
 }
-#content
-{
-    max-width: 960px;
-    text-align: left;
-    margin: 0px auto; /*auto centers the container */
-    padding: 3.84615384615385%; /* 25/650 */
+#content{
+	max-width: 960px;
+	text-align: left;
+	margin: 0px auto;
+	/*auto centers the container */
+	padding: 3.84615384615385%;
+	/* 25/650 */
 }
 /*CSS3 multiple columns.*/
 /* Get em size for colums: 184/16 */
-.columns
-{
-    -moz-column-width: 11.5em; /* Firefox */
-    -webkit-column-width: 11.5em; /* webkit, Safari, Chrome */
-    column-width: 11.5em;
+.columns{
+	-moz-column-width: 11.5em;
+	/* Firefox */
+	-webkit-column-width: 11.5em;
+	/* webkit, Safari, Chrome */
+	column-width: 11.5em;
 }
 /*remove standard list and bullet formatting from ul*/
-.columns ul
-{
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+.columns ul{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
 }
 /* correct webkit/chrome uneven margin on the first column*/
-.columns ul li:first-child
-{
-    margin-top:0px;
+.columns ul li:first-child{
+	margin-top:0px;
 }
-
 #btn-custom1{
-    width:170px;
-    border-radius: 0;
+	width:170px;
+	border-radius: 0;
 }

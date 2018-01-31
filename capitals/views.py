@@ -43,50 +43,13 @@ def home(request):
 
     us_states_list = create_us_states_list()
 
-    num_columns = 4
-    all_columns = []
-
-    if len(us_states_list) % num_columns == 0:
-        # Equal column lengths
-        col = 0
-        start = 0
-        end = len(us_states_list) / num_columns
-        while (col < num_columns):
-            this_col = us_states_list[start:end]
-
-            start += len(us_states_list) / num_columns
-            end += len(us_states_list) / num_columns
-            col += 1
-            all_columns.append(this_col)
-    else:
-        # Unequal column lengths
-        rem = len(us_states_list) % num_columns
-        col = 0
-        start = 0
-        end = int(len(us_states_list) / num_columns)
-        while (col < num_columns):
-            if rem > 0:
-                this_col = us_states_list[int(start):int(end + 1)]
-                start += int((len(us_states_list) / num_columns)) + 1
-                end += int((len(us_states_list) / num_columns)) + 1
-                rem -= 1
-            else:
-                this_col = us_states_list[int(start):int(end)]
-                start += len(us_states_list) / num_columns
-                end += len(us_states_list) / num_columns
-
-            col += 1
-            all_columns.append(this_col)
-
     return render(request, 'index.html', {'us_capitals':us_capitals,
                                         'all_photos':all_photos,
                                         'all_capitals':all_capitals,
                                         'us_capitals_visited':us_capitals_visited,
                                         'us_capitals_visited_percent':us_capitals_visited_percent,
                                         'us_states_list':us_states_list,
-                                        'other_capitals':other_capitals,
-                                        'all_columns':all_columns,
-                                        'num_columns':num_columns})
+                                        'other_capitals':other_capitals})
 
 def debug(request):
     us_states_list = create_us_states_list()
