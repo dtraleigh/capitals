@@ -43,13 +43,22 @@ def home(request):
 
     us_states_list = create_us_states_list()
 
+    # Returns list of state names that we have visited
+    # ["Indiana", "North Carolina", ....]
+    us_visited_states = []
+
+    us_state_objects = [s for s in Capital.objects.exclude(us_state='')]
+    for us_state_object in us_state_objects:
+        us_visited_states.append(us.states.lookup(us_state_object.us_state).name)
+
     return render(request, 'index.html', {'us_capitals':us_capitals,
-                                        'all_photos':all_photos,
-                                        'all_capitals':all_capitals,
-                                        'us_capitals_visited':us_capitals_visited,
-                                        'us_capitals_visited_percent':us_capitals_visited_percent,
-                                        'us_states_list':us_states_list,
-                                        'other_capitals':other_capitals})
+                                          'all_photos':all_photos,
+                                          'all_capitals':all_capitals,
+                                          'us_capitals_visited':us_capitals_visited,
+                                          'us_capitals_visited_percent':us_capitals_visited_percent,
+                                          'us_states_list':us_states_list,
+                                          'other_capitals':other_capitals,
+                                          'us_visited_states': us_visited_states})
 
 def debug(request):
     us_states_list = create_us_states_list()

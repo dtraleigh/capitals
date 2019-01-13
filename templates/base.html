@@ -74,84 +74,133 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
 
-    <style>#map { width: 800px; height: 500px; }
+    <style>#map { width: 100%; height: 400px; }
 .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
 .legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
 
     <!-- End leaflet stuff -->
-
-	<!-- Javascript for US Map -->
-	<script src="{% static "js/raphael.js"%}"></script>
-	<!-- <script src="scale.raphael.js"></script>-->
-	<script src="{% static "js/jquery.js"%}"></script>
-	<script src="{% static "js/color.jquery.js"%}"></script>
-	<script src="{% static "js/jquery.usmap.js"%}"></script>
-
-	<script>
-	$(document).ready(function() {
-	  $('#map').usmap({
-	    'stateSpecificStyles': {
-				{%for capital in us_capitals%}
-	      '{{capital.us_state}}' : {fill: '#76FF51'},
-				{%endfor%}
-	    },
-	    //'stateSpecificHoverStyles': {
-	    //  'HI' : {fill: '#ff0'}
-	    //},
-
-	    //'mouseoverState': {
-	    //  'HI' : function(event, data) {
-	        //return false;
-	    //  }
-	    //},
-
-
-	    'click' : function(event, data) {
-	      $('#alert')
-	        .text('Click '+data.name+' on map 1')
-	        .stop()
-	        .css('backgroundColor', '#ff0')
-	        .animate({backgroundColor: '#ddd'}, 1000);
-	    }
-	  });
-
-	  $('#map2').usmap({
-	    'stateStyles': {
-	      fill: '#025',
-	      "stroke-width": 1,
-	      'stroke' : '#036'
-	    },
-	    'stateHoverStyles': {
-	      fill: 'teal'
-	    },
-
-	    'click' : function(event, data) {
-	      $('#alert')
-	        .text('Click '+data.name+' on map 2')
-	        .stop()
-	        .css('backgroundColor', '#af0')
-	        .animate({backgroundColor: '#ddd'}, 1000);
-	    }
-	  });
-
-	  $('#over-md').click(function(event){
-	    $('#map').usmap('trigger', 'MD', 'mouseover', event);
-	  });
-
-	  $('#out-md').click(function(event){
-	    $('#map').usmap('trigger', 'MD', 'mouseout', event);
-	  });
-	});
-	</script>
 </head>
 <body>
 
 {% block content %}{% endblock %}
 
-	<!-- Javascript for Bootstrap
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
-	<script src="{% static "PhotoSwipe-master/dist/photoswipe.min.js"%}"></script>
-	<script src="{% static "PhotoSwipe-master/dist/photoswipe-ui-default.min.js"%}"></script>
+<!-- Javascript for Bootstrap
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<script src="{% static "PhotoSwipe-master/dist/photoswipe.min.js"%}"></script>
+<script src="{% static "PhotoSwipe-master/dist/photoswipe-ui-default.min.js"%}"></script>
+
+<!-- Javascript for leaflet map -->
+<script type="text/javascript" src="{% static "js/us-states.js"%}"></script>
+
+<script type="text/javascript">
+    //*** Create the Map
+    // Map start
+    var mapboxAccessToken = 'pk.eyJ1IjoiY29waGVhZDU2NyIsImEiOiJjanF2MGg5c3gwcTVwNDNuM2FoemcyZHExIn0.w4xEV2KZ7kGEhlfoWpE_wg';
+    var map = L.map('map').setView([37.8, -96], 3);
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
+        id: 'mapbox.light'
+    }).addTo(map);
+
+    L.geoJson(statesData).addTo(map);
+    //*** Map create end
+
+    //*** Control elements
+    var info = L.control();
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+        this._div.innerHTML = '<h4>States visited</h4>' +  (props ?
+            '<b>' + props.name + '</b><br />'
+            : 'Hover over a state');
+    };
+
+    info.addTo(map);
+    //*** end control
+
+    //*** Create the states outline and colors, styles
+
+    // Return a fillcolor if the state has been visited
+    function getColor(n) {
+        var color;
+        var visited = {{us_visited_states|safe}}.includes(n);
+
+        if (visited){
+            color = "#46AA14";
+        } else {
+            color = "#DDDDDD";
+        }
+        return color;
+    }
+
+    // state styles
+    function style(feature) {
+        return {
+            fillColor: getColor(feature.properties.name),
+            weight: 2,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.7
+        };
+    }
+
+    L.geoJson(statesData, {style: style}).addTo(map);
+    //*** State styles end
+
+    //*** Stuff that happens when you hover a mouse over the state
+    // Mouse in
+    function highlightFeature(e) {
+		var layer = e.target;
+
+		layer.setStyle({
+			weight: 5,
+			color: '#666',
+			dashArray: '',
+			fillOpacity: 0.7
+		});
+
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+			layer.bringToFront();
+		}
+
+		info.update(layer.feature.properties);
+	}
+
+	var geojson;
+
+    // Mouse out
+	function resetHighlight(e) {
+		geojson.resetStyle(e.target);
+		info.update();
+	}
+
+	function zoomToFeature(e) {
+		map.fitBounds(e.target.getBounds());
+	}
+
+	function onEachFeature(feature, layer) {
+		layer.on({
+			mouseover: highlightFeature,
+			mouseout: resetHighlight,
+			click: zoomToFeature
+		});
+	}
+
+	geojson = L.geoJson(statesData, {
+		style: style,
+		onEachFeature: onEachFeature
+	}).addTo(map);
+
+</script>
+<!-- end leaflet -->
+
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
