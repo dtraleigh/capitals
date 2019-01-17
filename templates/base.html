@@ -208,12 +208,6 @@
 	var awesomeMarker;
 
 	for (var city in cities) {
-
-		awesomeMarker = L.AwesomeMarkers.icon({
-			icon: 'coffee',
-			markerColor: 'red'
-		});
-
 		L.marker(
 				[cities[city].latitude, cities[city].longitude],
 				{
