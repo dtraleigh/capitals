@@ -91,8 +91,12 @@
 <script src="{% static "PhotoSwipe-master/dist/photoswipe.min.js"%}"></script>
 <script src="{% static "PhotoSwipe-master/dist/photoswipe-ui-default.min.js"%}"></script>
 
-<!-- Javascript for leaflet map -->
+<!-- Javascript/css for leaflet map -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <script type="text/javascript" src="{% static "js/us-states.js"%}"></script>
+<script type="text/javascript" src="{% static "js/us-capitals.js"%}"></script>
+<link rel="stylesheet" href="{% static "css/leaflet.awesome-markers.css"%}">
+<script src="{% static "js/leaflet.awesome-markers.min.js"%}"></script>
 
 <script type="text/javascript">
     //*** Create the Map
@@ -199,6 +203,32 @@
 		style: style,
 		onEachFeature: onEachFeature
 	}).addTo(map);
+
+	//*** Let's add capital cities
+	var awesomeMarker;
+
+	for (var city in cities) {
+
+		awesomeMarker = L.AwesomeMarkers.icon({
+			icon: 'coffee',
+			markerColor: 'red'
+		});
+
+		L.marker(
+				[cities[city].latitude, cities[city].longitude],
+				{
+					// icon: awesomeMarker,
+					icon: L.AwesomeMarkers.icon({icon: 'star', prefix: 'fa', markerColor: 'cadetblue', iconColor: '#fff'}),
+					riseOnHover: true,
+					title: cities[city].city_name + ', ' + cities[city].state_name
+				}
+			)
+			.addTo(map)
+			.on('click', function(e) {
+				gotoLocation(this.getLatLng().lat, this.getLatLng().lng, 7);
+			})
+			.bindPopup(cities[city].city_name + ', ' + cities[city].state_name);
+	}
 
 </script>
 <!-- end leaflet -->
