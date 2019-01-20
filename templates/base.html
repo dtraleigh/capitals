@@ -71,8 +71,8 @@
 	<link href="{% static "css/capitals-custom.css"%}" rel="stylesheet">
 
     <!-- Leaflet stuff -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="{% static "leaflet/leaflet.css" %}" />
+    <script src="{% static "leaflet/leaflet.js" %}"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
@@ -92,7 +92,7 @@
 <script src="{% static "PhotoSwipe-master/dist/photoswipe-ui-default.min.js"%}"></script>
 
 <!-- Javascript/css for leaflet map -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static "fontawesome-5.6.3/css/all.css" %}">
 <script type="text/javascript" src="{% static "js/us-states.js"%}"></script>
 <script type="text/javascript" src="{% static "js/us-capitals.js"%}"></script>
 <link rel="stylesheet" href="{% static "css/leaflet.awesome-markers.css"%}">

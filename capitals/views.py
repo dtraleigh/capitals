@@ -3,6 +3,7 @@ import us
 from django.shortcuts import render
 from capitals.models import Capital, Photo
 
+
 def create_us_states_list():
     # Get a list of all the capitals in the format ('city name', 0/1, 'XX')
     # The city name is the name of the capital,
@@ -26,20 +27,18 @@ def create_us_states_list():
 
     return us_states_list
 
-def home(request):
-    #US Capitals visited so far
-    us_capitals = Capital.objects.exclude(us_state='')
 
-    #Capitals outside the US
+def home(request):
+    # Capitals outside the US
     other_capitals = Capital.objects.filter(us_state='')
 
-    #All visited capitals
+    # All visited capitals
     all_capitals = Capital.objects.all()
     all_photos = Photo.objects.all()
 
-    #Calculate the progress so far
-    us_capitals_visited = us_capitals.count()
-    us_capitals_visited_percent = (us_capitals_visited / 50 ) * 100
+    # Calculate the progress so far
+    us_capitals_visited = Capital.objects.exclude(us_state='').count()
+    us_capitals_visited_percent = (us_capitals_visited / 50) * 100
 
     us_states_list = create_us_states_list()
 
@@ -51,21 +50,22 @@ def home(request):
     for us_state_object in us_state_objects:
         us_visited_states.append(us.states.lookup(us_state_object.us_state).name)
 
-    return render(request, 'index.html', {'us_capitals':us_capitals,
-                                          'all_photos':all_photos,
-                                          'all_capitals':all_capitals,
-                                          'us_capitals_visited':us_capitals_visited,
-                                          'us_capitals_visited_percent':us_capitals_visited_percent,
-                                          'us_states_list':us_states_list,
-                                          'other_capitals':other_capitals,
+    return render(request, 'index.html', {'all_photos': all_photos,
+                                          'all_capitals': all_capitals,
+                                          'us_capitals_visited': us_capitals_visited,
+                                          'us_capitals_visited_percent': us_capitals_visited_percent,
+                                          'us_states_list': us_states_list,
+                                          'other_capitals': other_capitals,
                                           'us_visited_states': us_visited_states})
 
+
 def debug(request):
+    # Just playing around
     us_states_list = create_us_states_list()
 
     list_of_us_state_objects = us.states.STATES
 
-    #US Capitals visited so far
+    # US Capitals visited so far
     us_capitals = Capital.objects.exclude(us_state='')
 
     # Returns list of state names that we have visited
