@@ -81,3 +81,14 @@ def debug(request):
                                           'us_capitals': us_capitals,
                                           'us_visited_states': us_visited_states})
 
+
+def map(request):
+    # Returns list of state names that we have visited
+    # ["Indiana", "North Carolina", ....]
+    us_visited_states = []
+
+    us_state_objects = [s for s in Capital.objects.exclude(us_state='')]
+    for us_state_object in us_state_objects:
+        us_visited_states.append(us.states.lookup(us_state_object.us_state).name)
+
+    return render(request, 'map.html', {'us_visited_states': us_visited_states})
