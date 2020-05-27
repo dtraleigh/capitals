@@ -77,17 +77,14 @@ var awesomeMarker;
 
 for (var city in cities) {
     L.marker(
-            [cities[city].latitude, cities[city].longitude],
-            {
-                // icon: awesomeMarker,
-                icon: L.AwesomeMarkers.icon({icon: 'star', prefix: 'fa', markerColor: 'cadetblue', iconColor: '#fff'}),
-                riseOnHover: true,
-                title: cities[city].city_name + ', ' + cities[city].state_name
-            }
-        )
-        .addTo(map)
-        .on('click', function(e) {
-            gotoLocation(this.getLatLng().lat, this.getLatLng().lng, 7);
-        })
-        .bindPopup(cities[city].city_name + ', ' + cities[city].state_name);
+        [cities[city].latitude, cities[city].longitude],
+        {
+            // icon: awesomeMarker,
+            icon: L.AwesomeMarkers.icon({icon: 'star', prefix: 'fa', markerColor: 'cadetblue', iconColor: '#fff'}),
+            riseOnHover: true,
+            title: cities[city].city_name + ', ' + cities[city].state_code
+        }
+    )
+    .addTo(map)
+    .bindPopup(cities[city].city_name + ', ' + cities[city].state_code);
 }
