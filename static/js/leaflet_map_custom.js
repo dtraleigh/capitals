@@ -67,8 +67,37 @@ function onEachFeature(feature, layer) {
     });
 }
 
+//*** Create the states outline and colors, styles
+
+// Return a fillcolor if the state has been visited
+function getColor(n) {
+    var color;
+    var visited = visited_states.includes(n);
+
+    if (visited){
+        color = "#46AA14";
+    } else {
+        color = "#DDDDDD";
+    }
+    return color;
+}
+
+// state styles
+function getStyle(feature) {
+    return {
+        fillColor: getColor(feature.properties.name),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+L.geoJson(statesData, {style: getStyle}).addTo(map);
+
 geojson = L.geoJson(statesData, {
-    style: style,
+    style: getStyle,
     onEachFeature: onEachFeature
 }).addTo(map);
 

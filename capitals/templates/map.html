@@ -38,35 +38,7 @@
     <script src="{% static "js/leaflet.awesome-markers.min.js"%}"></script>
 
     <script type="text/javascript">
-        //*** Create the states outline and colors, styles
-
-        // Return a fillcolor if the state has been visited
-        function getColor(n) {
-            var color;
-            var visited = {{us_visited_states|safe}}.includes(n);
-
-            if (visited){
-                color = "#46AA14";
-            } else {
-                color = "#DDDDDD";
-            }
-            return color;
-        }
-
-        // state styles
-        function style(feature) {
-            return {
-                fillColor: getColor(feature.properties.name),
-                weight: 2,
-                opacity: 1,
-                color: 'white',
-                dashArray: '3',
-                fillOpacity: 0.7
-            };
-        }
-
-        L.geoJson(statesData, {style: style}).addTo(map);
-        //*** State styles end
+        var visited_states = {{us_visited_states|safe}}
     </script>
     <script src="{% static "js/leaflet_map_custom.js"%}"></script>
     </body>
