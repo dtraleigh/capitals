@@ -29,7 +29,7 @@
     <!-- End leaflet stuff -->
     </head>
     <body>
-    <div id="map"></div>
+    <div id="map" class="map_full"></div>
     <!-- Javascript/css for leaflet map -->
     <link rel="stylesheet" href="{% static "fontawesome-5.6.3/css/all.css" %}">
     <script type="text/javascript" src="{% static "js/us-states.js"%}"></script>
@@ -39,7 +39,7 @@
 
     <script type="text/javascript">
         var visited_states = {{us_visited_states|safe}}
-        var country_capitals = {{other_capitals|safe}}
+        var country_capitals = {{other_capitals_json|safe}}
     </script>
     <script src="{% static "js/leaflet_map_custom.js"%}"></script>
     </body>

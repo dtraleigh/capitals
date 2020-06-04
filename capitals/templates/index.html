@@ -1,6 +1,17 @@
-{% extends "base.html" %}
+{%extends "base.html"%}
 
-{% block content %}
+{%block leaflet_head%}
+	<!-- Leaflet stuff -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "leaflet/leaflet.css" %}" />
+    <script src="{% static "leaflet/leaflet.js" %}"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+    <!-- End leaflet stuff -->
+
+{%endblock leaflet_head%}
+
+{%block content%}
 
 	<a name="top"></a>
 	<nav class="navbar navbar-default">
@@ -13,7 +24,7 @@
   <div class="row" id="top-section">
 		<div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
 			<h2 class="text-center">Map of the USA</h2>
-			<div id='map'></div>
+			<div id="map" class="map_embed"></div>
 			<!--<iframe src="https://capitals.leoandjen.com/map/"></iframe>-->
 			<div class="col-md-5 col-sm-12 col-xs-12">
 				<h4>Countries</h4>
@@ -96,3 +107,20 @@
 </div>
 
 {%endblock content%}
+
+{%block leaflet_foot%}
+
+	<!-- Javascript/css for leaflet map -->
+    <link rel="stylesheet" href="{% static "fontawesome-5.6.3/css/all.css" %}">
+    <script type="text/javascript" src="{% static "js/us-states.js"%}"></script>
+    <script type="text/javascript" src="{% static "js/us-capitals.js"%}"></script>
+    <link rel="stylesheet" href="{% static "css/leaflet.awesome-markers.css"%}">
+    <script src="{% static "js/leaflet.awesome-markers.min.js"%}"></script>
+
+    <script type="text/javascript">
+        var visited_states = {{us_visited_states|safe}}
+        var country_capitals = {{other_capitals_json|safe}}
+    </script>
+    <script src="{% static "js/leaflet_map_custom.js"%}"></script>
+
+{%endblock leaflet_foot%}

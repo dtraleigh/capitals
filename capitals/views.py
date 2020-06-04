@@ -32,6 +32,7 @@ def create_us_states_list():
 def home(request):
     # Capitals outside the US and DC
     other_capitals = Capital.objects.filter(us_state="")
+    other_capitals_json = serializers.serialize("json", Capital.objects.filter(us_state=""))
 
     # All visited capitals
     all_capitals = Capital.objects.all()
@@ -57,7 +58,8 @@ def home(request):
                                           "us_capitals_visited_percent": us_capitals_visited_percent,
                                           "us_states_list": us_states_list,
                                           "other_capitals": other_capitals,
-                                          "us_visited_states": us_visited_states})
+                                          "us_visited_states": us_visited_states,
+                                          "other_capitals_json": other_capitals_json})
 
 
 def debug(request):
@@ -85,7 +87,7 @@ def debug(request):
 
 def map(request):
     # Capitals outside the US and DC
-    other_capitals = serializers.serialize("json", Capital.objects.filter(us_state=""))
+    other_capitals_json = serializers.serialize("json", Capital.objects.filter(us_state=""))
 
     # Returns list of state names that we have visited
     # ["Indiana", "North Carolina", ....]
@@ -96,4 +98,4 @@ def map(request):
         us_visited_states.append(us.states.lookup(us_state_object.us_state).name)
 
     return render(request, "map.html", {"us_visited_states": us_visited_states,
-                                        "other_capitals": other_capitals})
+                                        "other_capitals_json": other_capitals_json})
