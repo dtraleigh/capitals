@@ -103,6 +103,7 @@ geojson = L.geoJson(statesData, {
 
 //*** Let's add US capital cities
 var awesomeMarker;
+var base_url = "https://capitals.leoandjen.com/"
 
 for (var city in cities) {
     L.marker(
@@ -115,7 +116,7 @@ for (var city in cities) {
         }
     )
     .addTo(map)
-    .bindPopup(cities[city].city_name + ', ' + cities[city].state_code);
+    .bindPopup(cities[city].city_name + ', ' + cities[city].state_code + " [<a href=\"" + base_url + "#" + cities[city].state_code + "\">📸</a>]");
 }
 
 for (var capital in country_capitals) {
@@ -129,6 +130,6 @@ for (var capital in country_capitals) {
         }
     )
     .addTo(map)
-    .bindPopup(country_capitals[capital].fields.name);
+    .bindPopup(country_capitals[capital].fields.name + " [<a href=\"" + base_url + "#" + country_capitals[capital].pk + "\">📸</a>]");
 
 }
