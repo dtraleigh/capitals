@@ -101,7 +101,7 @@ geojson = L.geoJson(statesData, {
     onEachFeature: onEachFeature
 }).addTo(map);
 
-//*** Let's add capital cities
+//*** Let's add US capital cities
 var awesomeMarker;
 
 for (var city in cities) {
@@ -116,4 +116,19 @@ for (var city in cities) {
     )
     .addTo(map)
     .bindPopup(cities[city].city_name + ', ' + cities[city].state_code);
+}
+
+for (var capital in country_capitals) {
+    L.marker(
+        [country_capitals[capital].fields.lat, country_capitals[capital].fields.lon],
+        {
+            // icon: awesomeMarker,
+            icon: L.AwesomeMarkers.icon({icon: 'star', prefix: 'fa', markerColor: 'red', iconColor: '#fff'}),
+            riseOnHover: true,
+            title: country_capitals[capital].fields.name
+        }
+    )
+    .addTo(map)
+    .bindPopup(country_capitals[capital].fields.name);
+
 }
