@@ -1,17 +1,78 @@
-{%extends "base.html"%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        {% load staticfiles %}
+        <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.png" %}">
 
-{%block leaflet_head%}
-	<!-- Leaflet stuff -->
-    {% load staticfiles %}
-    <link rel="stylesheet" href="{% static "leaflet/leaflet.css" %}" />
-    <script src="{% static "leaflet/leaflet.js" %}"></script>
-    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
-    <!-- End leaflet stuff -->
+        <title>Leo and Jen - Capitals Journey</title>
 
-{%endblock leaflet_head%}
+        <style>
+          #alert {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            background-color: #ddd;
+            color: #333;
+            padding: 5px;
+            font-weight: bold;
+          }
+            {%for capital in all_capitals%}
+            #photos{{capital.id}} {
+               line-height: 0;
+               -webkit-column-count: 2;
+               -webkit-column-gap:   0px;
+               -moz-column-count:    2;
+               -moz-column-gap:      0px;
+               column-count:         2;
+               column-gap:           0px;
+            }
+            #photos{{capital.id}} img {
+              width: 100% !important;
+              height: auto !important;
+            }
+            @media (max-width: 1200px) {
+              #photos{{capital.id}} {
+              -moz-column-count:    2;
+              -webkit-column-count: 2;
+              column-count:         2;
+              }
+            }
+            @media (max-width: 1000px) {
+              #photos{{capital.id}} {
+              -moz-column-count:    2;
+              -webkit-column-count: 2;
+              column-count:         2;
+              }
+            }
+            @media (max-width: 800px) {
+              #photos{{capital.id}} {
+              -moz-column-count:    2;
+              -webkit-column-count: 2;
+              column-count:         2;
+              }
+            }
+            @media (max-width: 400px) {
+              #photos{{capital.id}} {
+              -moz-column-count:    1;
+              -webkit-column-count: 1;
+              column-count:         1;
+              }
+            }
+        {%endfor%}
+        </style>
+        <link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet">
+        <link href="{% static "css/ie10-viewport-bug-workaround.css"%}" rel="stylesheet">
+        <link href="{% static "PhotoSwipe-master/dist/photoswipe.css"%}" rel="stylesheet">
+        <link href="{% static "PhotoSwipe-master/dist/default-skin/default-skin.css"%}" rel="stylesheet">
+        <link href="{% static "css/capitals-custom.css"%}" rel="stylesheet">
 
-{%block content%}
+		{% include "leaflet_head.html" %}
+
+	</head>
+<body>
 
 	<a name="top"></a>
 	<nav class="navbar navbar-default">
@@ -20,107 +81,160 @@
 		</div>
 	</nav>
 
-<div class="container">
-  <div class="row" id="top-section">
-		<div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
-			<h2 class="text-center">Map of the USA</h2>
-			<div id="map" class="map_embed"></div>
-			<!--<iframe src="https://capitals.leoandjen.com/map/"></iframe>-->
-			<div class="col-md-5 col-sm-12 col-xs-12">
-				<h4>Countries</h4>
-				<div class="btn-group-vertical" role="group">
-					{%for capital in other_capitals%}
-						<a href="#{{capital.id}}" class="btn btn-info">{{capital.name}}</a>
-					{%endfor%}
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-7 col-md-8 col-sm-12 col-xs-12">
-			<h4>US Capitals</h4>
-			<div class="progress">
-			  <div class="progress-bar" role="progressbar" aria-valuenow="{{us_capitals_visited_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{us_capitals_visited_percent}}%;">
-				{{us_capitals_visited}} / 50
-			  </div>
-			</div>
-			<div class="row">
-				<div id="content col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<h1>States</h1>
-					<div class="columns">
-						 <ul>
-						 {%for city, visited, state in us_states_list%}
-							 <li>
-								 <div class="btn-group-vertical" role="group">
-									{%if visited%}
-									<a href="#{{state}}" class="btn btn-success" id="btn-custom1">{{city}}</a>
-									{%else%}
-									<a href="#{{state}}" class="btn btn-default" id="btn-custom1">{{city}}</a>
-									{%endif%}
-								 </div>
-							 </li>
-						 {%endfor%}
-						 </ul>
-					</div>
-				</div>
-			</div>
-		</div>
-  </div>
-
-	{%for capital in all_capitals%}
-	<div class="row">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				{%if capital.us_state%}
-					<a name="{{capital.us_state}}"></a>
-				{%else%}
-					<a name="{{capital.id}}"></a>
-				{%endif%}
-				<img src="{{ MEDIA_URL }}{{capital.country.flag}}" class="country-flag-img">
-		    <h1 class="panel-title capital-title">{{capital.name}}</h1>
-				<p class="text-right"><a href="#top">Back to top</a></p>
-		  </div>
-			<div class="panel-body">
-				<div class="col-sm-4 col-xs-12">
-					<img src="{{ MEDIA_URL }}{{capital.flag}}" class="flag-img">
-					<small>{{capital.flag_caption}}</small>
-					<h3>Date Visited: {{capital.date_visited}}</h3>
-					<p>{{capital.description}}</p>
-					<p><a href="https://www.google.com/maps/@{{capital.lat}},{{capital.lon}},12z" target='_blank' class="btn btn-primary btn-lg active" role="button">Map it</a></p>
-				</div>
-				<div class="col-sm-8 col-xs-12">
-					<div id="photos{{capital.id}}" class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-						{%for photo in all_photos%}
-							{%if photo.capital == capital%}
-								<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-						      <a href="{{ MEDIA_URL }}{{photo.photo_file}}" itemprop="contentUrl" data-size="{{photo.photo_width}}x{{photo.photo_height}}">
-						          <img src="{{ MEDIA_URL }}{{photo.photo_file}}" itemprop="thumbnail" alt="Image description" />
-						      </a>
-						    	<figcaption itemprop="caption description">{{capital.name}} - {{capital.date_visited}}</figcaption>
-								</figure>
-							{%endif%}
+	<div class="container">
+	  <div class="row" id="top-section">
+			<div class="col-lg-5 col-md-8 col-sm-12 col-xs-12">
+				<h2 class="text-center">Map of the USA</h2>
+				<div id="map" class="map_embed"></div>
+				<div class="col-md-5 col-sm-12 col-xs-12">
+					<h4>Countries</h4>
+					<div class="btn-group-vertical" role="group">
+						{%for capital in other_capitals%}
+							<a href="#{{capital.id}}" class="btn btn-info">{{capital.name}}</a>
 						{%endfor%}
 					</div>
 				</div>
-		  </div>
+			</div>
+			<div class="col-lg-7 col-md-8 col-sm-12 col-xs-12">
+				<h4>US Capitals</h4>
+				<div class="progress">
+				  <div class="progress-bar" role="progressbar" aria-valuenow="{{us_capitals_visited_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{us_capitals_visited_percent}}%;">
+					{{us_capitals_visited}} / 50
+				  </div>
+				</div>
+				<div class="row">
+					<div id="content col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<h1>States</h1>
+						<div class="columns">
+							 <ul>
+							 {%for city, visited, state in us_states_list%}
+								 <li>
+									 <div class="btn-group-vertical" role="group">
+										{%if visited%}
+										<a href="#{{state}}" class="btn btn-success" id="btn-custom1">{{city}}</a>
+										{%else%}
+										<a href="#{{state}}" class="btn btn-default" id="btn-custom1">{{city}}</a>
+										{%endif%}
+									 </div>
+								 </li>
+							 {%endfor%}
+							 </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+
+		{%for capital in all_capitals%}
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					{%if capital.us_state%}
+						<a name="{{capital.us_state}}"></a>
+					{%else%}
+						<a name="{{capital.id}}"></a>
+					{%endif%}
+					<img src="{{ MEDIA_URL }}{{capital.country.flag}}" class="country-flag-img">
+				<h1 class="panel-title capital-title">{{capital.name}}</h1>
+					<p class="text-right"><a href="#top">Back to top</a></p>
+			  </div>
+				<div class="panel-body">
+					<div class="col-sm-4 col-xs-12">
+						<img src="{{ MEDIA_URL }}{{capital.flag}}" class="flag-img">
+						<small>{{capital.flag_caption}}</small>
+						<h3>Date Visited: {{capital.date_visited}}</h3>
+						<p>{{capital.description}}</p>
+						<p><a href="https://www.google.com/maps/@{{capital.lat}},{{capital.lon}},12z" target='_blank' class="btn btn-primary btn-lg active" role="button">Map it</a></p>
+					</div>
+					<div class="col-sm-8 col-xs-12">
+						<div id="photos{{capital.id}}" class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+							{%for photo in all_photos%}
+								{%if photo.capital == capital%}
+									<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+								  <a href="{{ MEDIA_URL }}{{photo.photo_file}}" itemprop="contentUrl" data-size="{{photo.photo_width}}x{{photo.photo_height}}">
+									  <img src="{{ MEDIA_URL }}{{photo.photo_file}}" itemprop="thumbnail" alt="Image description" />
+								  </a>
+									<figcaption itemprop="caption description">{{capital.name}} - {{capital.date_visited}}</figcaption>
+									</figure>
+								{%endif%}
+							{%endfor%}
+						</div>
+					</div>
+			  </div>
+			</div>
 		</div>
+		{%endfor%}
 	</div>
-	{%endfor%}
+
+	{% include "leaflet_foot.html" %}
+
+    <!-- PhotoSwipe -->
+    <script src="{% static "PhotoSwipe-master/dist/photoswipe.min.js"%}"></script>
+    <script src="{% static "PhotoSwipe-master/dist/photoswipe-ui-default.min.js"%}"></script>
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element, as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+        <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+          </div>
+
+        </div>
+
 </div>
-
-{%endblock content%}
-
-{%block leaflet_foot%}
-
-	<!-- Javascript/css for leaflet map -->
-    <link rel="stylesheet" href="{% static "fontawesome-5.6.3/css/all.css" %}">
-    <script type="text/javascript" src="{% static "js/us-states.js"%}"></script>
-    <script type="text/javascript" src="{% static "js/us-capitals.js"%}"></script>
-    <link rel="stylesheet" href="{% static "css/leaflet.awesome-markers.css"%}">
-    <script src="{% static "js/leaflet.awesome-markers.min.js"%}"></script>
-
-    <script type="text/javascript">
-        var visited_states = {{us_visited_states|safe}}
-        var country_capitals = {{other_capitals_json|safe}}
-    </script>
-    <script src="{% static "js/leaflet_map_custom.js"%}"></script>
-
-{%endblock leaflet_foot%}
+	<script src="{% static "js/photo_swipe_custom.js"%}"></script>
+</body>
+</html>

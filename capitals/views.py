@@ -62,29 +62,6 @@ def home(request):
                                           "other_capitals_json": other_capitals_json})
 
 
-def debug(request):
-    # Just playing around
-    us_states_list = create_us_states_list()
-
-    list_of_us_state_objects = us.states.STATES
-
-    # US Capitals visited so far
-    us_capitals = Capital.objects.exclude(us_state="")
-
-    # Returns list of state names that we have visited
-    # ["Indiana", "North Carolina", ....]
-    us_visited_states = []
-
-    us_state_objects = [s for s in Capital.objects.exclude(us_state="")]
-    for us_state_object in us_state_objects:
-        us_visited_states.append(us.states.lookup(us_state_object.us_state).name)
-
-    return render(request, "debug.html", {"us_states_list": us_states_list,
-                                          "list_of_us_state_objects": list_of_us_state_objects,
-                                          "us_capitals": us_capitals,
-                                          "us_visited_states": us_visited_states})
-
-
 def map(request):
     # Capitals outside the US and DC
     other_capitals_json = serializers.serialize("json", Capital.objects.filter(us_state=""))
